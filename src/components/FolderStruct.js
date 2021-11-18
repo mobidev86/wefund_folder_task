@@ -1,5 +1,5 @@
 import { useState, React, useEffect } from "react";
-import FolderTree, { testData } from "react-folder-tree";
+import FolderTree from "react-folder-tree";
 import "react-folder-tree/dist/style.css";
 const axios = require("axios");
 
@@ -30,11 +30,11 @@ const FolderStruct = () => {
     let folderReturnObj = [];
 
     inputArr.forEach(async (data) => {
-      if (data.type == "file") {
+      if (data.type === "file") {
         folderReturnObj.push({ name: data.name });
         tempFileCount++;
         tempFileSize = tempFileSize + Number(data.size);
-      } else if (data.type == "folder") {
+      } else if (data.type === "folder") {
         let loopChild = await readArrayNode(data.children);
         folderReturnObj.push({ name: data.name, children: loopChild });
       }
@@ -52,11 +52,11 @@ const FolderStruct = () => {
         children: [],
       };
       item.children.forEach(async (child) => {
-        if (child.type == "file") {
+        if (child.type === "file") {
           returnObj.children.push({ name: child.name });
           tempFileCount++;
           tempFileSize = tempFileSize + Number(child.size);
-        } else if (child.type == "folder") {
+        } else if (child.type === "folder") {
           let arrTreeObject = await readArrayNode(child.children);
           returnObj.children.push({
             name: child.name,
